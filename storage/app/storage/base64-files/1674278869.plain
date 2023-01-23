@@ -1,0 +1,50 @@
+// Aula 14 - Manipulação de Banco de Dados
+
+> INSERT into AREA (DEPTNUM,NOME,CIDADE) values (60,'TI','CARAPICUIBA');
+
+> SELECT * from AREA;
+
+> CREATE table D (id integer default 0);
+
+> INSERT into D values (default);
+
+> INSERT into D (id) values (default);
+
+> SELECT * FROM D;
+
+> CREATE table Tabela_a (id integer default 0, coluna2 varchar(10));
+
+> INSERT into Tabela_a (coluna2) values ('Teste');
+
+> SELECT * FROM Tabela_a;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+// Aula 1 - Preparação do Ambiente
+
+# mysql -u root teste -p
+
+> SHOW TABLES;
+
+> SELECT * FROM TABELA1;
+
+> SELECT * FROM TABELA10;
+
+> SELECT * FROM TABELA100;
+
+> SELECT * FROM FUN;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

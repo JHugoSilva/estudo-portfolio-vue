@@ -1,0 +1,14 @@
+composer create-project laravel/laravel portifolio-website
+
+npm install vue-loader@next vue@next vue-router@next
+
+npm i @vitejs/plugin-vue --force --save-dev
+npm i sweetalert2
+
+composer require intervention/image
+
+npm i --save @fortawesome/fontawesome-svg-core
+
+npm i --save @fortawesome/free-solid-svg-icons
+npm i --save @fortawesome/free-regular-svg-icons
+npm i --save @fortawesome/free-brands-svg-icons
