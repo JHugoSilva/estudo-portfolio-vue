@@ -1,5 +1,0 @@
-select datname from pg_database;
-
-create database mercado_y;
-
-drop database mercado_y;

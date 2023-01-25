@@ -74,6 +74,16 @@ class ProjectController extends Controller
         }
         $project->photo = $name;
         $project->save();
+    }
 
+    public function delete_project($id) {
+        $project = Project::findOrFail($id);
+        $image_path = public_path()."/img/upload/";
+        $image = $image_path.$project->photo;
+
+        if (file_exists($image)) {
+            @unlink($image);
+        }
+        $project->delete();
     }
 }

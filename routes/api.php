@@ -4,9 +4,11 @@ use App\Http\Controllers\API\AboutController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\EducationController;
 use App\Http\Controllers\API\ExperienceController;
+use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\ServiceController;
 use App\Http\Controllers\API\SkillController;
+use App\Http\Controllers\API\TestimonialController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,4 +60,19 @@ Route::controller(ProjectController::class)->group(function(){
     Route::post('/add_project', 'add_project');
     Route::get('/get_edit_project/{id}', 'get_edit_project');
     Route::put('/update_project/{id}', 'update_project');
+    Route::delete('/delete_project/{id}', 'delete_project');
+});
+
+Route::controller(TestimonialController::class)->group(function(){
+    Route::get('/get_all_testimonial', 'get_all_testimonial');
+    Route::post('/add_testimonial', 'add_testimonial');
+    Route::get('/get_edit_testimonial/{id}', 'get_edit_testimonial');
+    Route::put('/update_testimonial/{id}', 'update_testimonial');
+    Route::delete('/delete_testimonial/{id}', 'delete_testimonial');
+});
+
+Route::controller(MessageController::class)->group(function(){
+    Route::get('/get_all_message', 'get_all_message');
+    Route::put('/change_status/{id}', 'change_status');
+    Route::delete('/delete_message/{id}', 'delete_message');
 });

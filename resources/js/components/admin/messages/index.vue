@@ -1,77 +1,75 @@
 <script setup>
 import Base from '../layouts/base.vue'
 import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
+let messages = ref([])
 
-let projects = ref([])
-
-onMounted(async () => {
-    getProjects()
+onMounted(async()=>{
+    getMessages()
 })
 
-const getProjects = async () => {
-    let response = await axios.get('/api/get_all_project')
-    projects.value = response.data.projects
+const getMessages = async () => {
+    let response = await axios.get('/api/get_all_message');
+    messages.value = response.data.messages
 }
 
-const ourImage = (img) => {
-    return '/img/upload/'+img
+const updateStatus = (id, status) => {
+
+    const formData = new FormData()
+    formData.append('status', status)
+    formData.append('_method', 'put')
+
+    axios.post('/api/change_status/'+id, formData)
+    .then(response => {
+        toast.fire({
+            icon: 'success',
+            title: 'Status change Successfully'
+        })
+        getMessages()
+    })
 }
 
-const newProject = () => {
-    router.push('/admin/projects/new')
-}
-
-const onEdit = (id) => {
-    router.push({name: 'projectAdminEdit', params: { id:id } })
-}
-
-const deleteProject = (id) => {
+const deleteMessage = (id) => {
     Swal.fire({
-        title: 'Are you sure ?',
+        title: 'Are you sure?',
         text: 'You can\'t go back',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085D6',
         cancelButtonColor: '#D33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes, delete it'
     })
-    .then((result) => {
+    .then((result)=>{
         if (result.value) {
-            axios.delete(`/api/delete_project/${id}`)
+            axios.delete('/api/delete_message/'+id)
             .then(()=>{
                 Swal.fire(
                     'Delete',
-                    'Project delete sucessfully',
+                    'Message delete successfully',
                     'success'
                 )
-                getProjects()
+                getMessages()
             })
         }
     })
 }
-
 </script>
 <template>
     <Base/>
-    <main class="main">
-        <!-- Side Nav Dummy-->
-        <div class="main__sideNav"></div>
-        <!-- End Side Nav -->
-        <!-- Main Content -->
-        <div class="main__content">
-            <section class="projects section" id="projects">
-                <div class="skills_container">
+   <main class="main">
+    <div class="main__sideNav">
+
+    </div>
+    <div class="main__content">
+                   <!--==================== MESSAGES ====================-->
+                   <section class="messages section" id="messages">
+                <div class="messages_container">
                     <div class="titlebar">
                         <div class="titlebar_item">
-                            <h1>Projects </h1>
+                            <h1>Messages </h1>
                         </div>
                         <div class="titlebar_item">
-                            <div class="btn" @click="newProject()">
-                                New Project
-                            </div>
+
                         </div>
                     </div>
 
@@ -100,39 +98,43 @@ const deleteProject = (id) => {
                             </div>
                             <div class="relative">
                                 <i class="table_search-input--icon fas fa-search "></i>
-                                <input class="table_search--input" type="text" placeholder="Search Project">
+                                <input class="table_search--input" type="text" placeholder="Search Message">
                             </div>
                         </div>
 
-                        <div class="project_table-heading">
-                            <p>Image</p>
-                            <p>Title</p>
+                        <div class="message_table-heading">
+                            <p>Name</p>
+                            <p>Email</p>
+                            <p>Subject</p>
                             <p>Description</p>
-                            <p>Link</p>
+                            <p>Status</p>
                             <p>Actions</p>
                         </div>
                         <!-- item 1 -->
-                        <div class="project_table-items" v-for="item in projects" :key="item.id" v-if="projects.length > 0">
-                            <p>
-                                <img :src="ourImage(item.photo)" alt="" class="project_img-list">
-                            </p>
-                            <p>{{ item.title }}</p>
+                        <div class="message_table-items" v-for="item in messages" :key="item.id" v-if="messages.length > 0">
+                            <p>{{ item.name }}</p>
+                            <p>{{ item.email }}</p>
+                            <p>{{ item.subject }}</p>
                             <p>{{ item.description }}</p>
-                            <p>{{ item.link }}</p>
+                            <p>
+                                <span class="badge_read" @click="updateStatus(item.id, 0)" v-if="item.status == 1">
+                                    Read
+                                </span>
+                                <span class="badge_unread" @click="updateStatus(item.id, 1)" v-else>
+                                    Unread
+                                </span>
+                            </p>
                             <div>
-                                <button class="btn-icon success" @click="onEdit(item.id)">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </button>
-                                <button class="btn-icon danger" @click="deleteProject(item.id)">
+                                <button class="btn-icon danger" @click="deleteMessage(item.id)">
                                     <i class="far fa-trash-alt"></i>
                                 </button>
                             </div>
                         </div>
 
                     </div>
-
                 </div>
             </section>
-        </div>
-    </main>
+    </div>
+   </main>
 </template>
+

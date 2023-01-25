@@ -113,6 +113,39 @@ const routes = [
         meta: {
             requiresAuth: true
         }
+    },
+    {
+        path: '/admin/testimonials',
+        component: () => import('../components/admin/testimonials/index.vue'),
+        name: 'projectAdminTestimonials',
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/testimonials/new',
+        component: () => import('../components/admin/testimonials/new.vue'),
+        name: 'adminTestimonialsNew',
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/testimonials/edit/:id',
+        component: () => import('../components/admin/testimonials/edit.vue'),
+        props: true,
+        name: 'adminTestimonialsEdit',
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/admin/messages/index',
+        component: () => import('../components/admin/messages/index.vue'),
+        name: 'adminMessagesIndex',
+        meta: {
+            requiresAuth: true
+        }
     }
 ];
 
