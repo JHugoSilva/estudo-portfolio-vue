@@ -9,6 +9,7 @@ use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\ServiceController;
 use App\Http\Controllers\API\SkillController;
 use App\Http\Controllers\API\TestimonialController;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -75,4 +76,14 @@ Route::controller(MessageController::class)->group(function(){
     Route::get('/get_all_message', 'get_all_message');
     Route::put('/change_status/{id}', 'change_status');
     Route::delete('/delete_message/{id}', 'delete_message');
+});
+
+Route::controller(UserController::class)->group(function(){
+    Route::get('/get_all_user', 'get_all_user');
+    Route::post('/create_user', 'create_user');
+    Route::post('/update_user/{id}', 'update_user');
+    Route::delete('/delete_user/{id}', 'delete_user');
+    Route::get('/profile', 'profile');
+    Route::post('/update_profile/{id}', 'update_profile');
+    Route::get('/get_user_name', 'get_user_name');
 });

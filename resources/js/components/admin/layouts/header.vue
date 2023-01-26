@@ -1,18 +1,31 @@
 <script setup>
-    import { ref } from 'vue'
+    import { ref, onMounted } from 'vue'
     import { useRouter } from 'vue-router';
 
     const router = useRouter();
     const showNavHeader = ref(false)
+    const nameUser = ref('')
 
     const openNavHeader = () => {
         showNavHeader.value = !showNavHeader.value
     }
 
+    onMounted(async () => {
+        getUserName()
+    })
 
     const logout = () => {
         localStorage.removeItem('token')
         router.push('/')
+    }
+
+    const myProfile = () => {
+        router.push({name: 'adminUserProfile'})
+    }
+
+    const getUserName = async () => {
+        let response = await axios.get('/api/get_user_name')
+        nameUser.value = response.data.name
     }
 </script>
 <template>
@@ -32,7 +45,7 @@
                 <img class="header_profile-img" src="assets/img/avatar.jpg" alt="" />
             </div>
             <p class="header_profile-name">
-                Zander Ford
+                {{ nameUser }}
             </p>
 
         </div>
@@ -55,7 +68,7 @@
             </span>
             <ul class="header_profile-name--nav--list">
                 <li class="header_profile-name--nav--item">
-                    <a class="header_profile-name--nav--link" href="#">
+                    <a class="header_profile-name--nav--link" href="#" @click="myProfile()">
                         Profile
                     </a>
                 </li>

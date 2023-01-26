@@ -58,7 +58,6 @@ class AuthController extends Controller
         }
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-
             $user = $request->user();
             $success['token'] = $user->createToken('MyApp')->plainTextToken;
             $success['name'] = $user->name;
@@ -70,6 +69,8 @@ class AuthController extends Controller
             ];
 
             return response()->json($response, 200);
+        } else {
+            dd(Auth::attempt(['email' => $request->email, 'password' => $request->password]));
         }
     }
 }

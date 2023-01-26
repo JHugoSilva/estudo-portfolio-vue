@@ -12,7 +12,6 @@ let form = ref({
 })
 
 onMounted(async () => {
-    console.log(props.id)
     getsingleProject()
 })
 
@@ -25,7 +24,6 @@ const props = defineProps({
 
 const getsingleProject = async () => {
     let response = await axios.get(`/api/get_edit_project/${props.id}`)
-    console.log(props.id)
     form.value = response.data.project
 }
 

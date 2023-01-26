@@ -1,20 +1,18 @@
 <script setup>
 import { reactive, ref } from 'vue'
-import { mapActions } from 'vuex'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
 let form = reactive({
-    email: 'ycummings@example.net',
-    password: 'password'
+    email: '',
+    password: ''
 })
 
 let error = ref('')
 
 const login = async() => {
     await axios.post('/api/login', form).then(response => {
-        console.log(response)
         if (response.data.success) {
             localStorage.setItem('token', response.data.data.token)
             router.push('/admin/home')

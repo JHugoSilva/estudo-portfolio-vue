@@ -33,7 +33,6 @@
     }
 
     const createEducation = async () => {
-        console.log('ASYNC')
         await axios.post('/api/create_education', form.value)
         .then(response => {
             getEducations()

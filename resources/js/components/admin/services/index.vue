@@ -20,7 +20,6 @@
     const getServices = async () => {
         let response = await axios.get('/api/get_all_service')
         services.value = response.data.services
-        console.log(services.value)
     }
 
     const openModal = () => {

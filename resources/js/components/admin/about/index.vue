@@ -20,7 +20,6 @@
     const getAbout = async () => {
         let response = await axios.get('/api/edit_about')
         form.value = response.data
-        console.log('form', form.value)
     }
 
     const getPhoto = () => {
